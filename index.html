@@ -2,14 +2,40 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Playground - JavaScript 101</title>
+    <title>three.js webgl - coordinates</title>
   </head>
   <body>
     <p style="margin-top: 40vh; text-align: center; font: normal 24px monospace;">
-      Open the console 🤓
     </p>
 
     <!-- Add some HTML in here -->
+    <!-- <script src="js/three.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
+    <script src="https://rawgit.com/jeromeetienne/threex.domevents/master/threex.domevents.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/master/build/three.min.js"></script>
+    <script src = "https://rawgit.com/mrdoob/three.js/master/examples/js/controls/OrbitControls.js"></script>
+
+<!--    <script type="x-shader/x-vertex" id="vertexShader">
+      varying vec3 vWorldPosition;
+      void main() {
+        vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+        vWorldPosition = worldPosition.xyz;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+      }
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentShader">
+      uniform vec3 topColor;
+      uniform vec3 bottomColor;
+      uniform float offset;
+      uniform float exponent;
+      varying vec3 vWorldPosition;
+      void main() {
+        float h = normalize( vWorldPosition + offset ).y;
+        gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h, 0.0 ), exponent ), 0.0 ) ), 1.0 );
+      }
+    </script> -->
+    <div id="webGL-container"></div>
 
     <script src="main.js"></script>
   </body>
