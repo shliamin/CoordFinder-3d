@@ -1,10 +1,13 @@
 
 init();
+animate();
 
 function init() {
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight, .1, 500);
+var camera = new THREE.PerspectiveCamera(55,window.innerWidth/window.innerHeight, .1, 500);
 var renderer = new THREE.WebGLRenderer();
+var controls = new THREE.OrbitControls( camera);
+controls.addEventListener('change',render);
 
 renderer.setClearColor(0xdddddd);
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -60,7 +63,17 @@ test.appendChild( renderer.domElement);
 
 renderer.render(scene,camera);
 
-// scene.add(objMesh);
+function animate(){
+  requestAnimationFrame( animate);
+  controls.update();
+}
+
+function render(){
+  renderer.render(scene, camera);
+}
+
+
+// Find obj coordinates:
 scene.updateMatrixWorld(true);
 var position = new THREE.Vector3();
 position.getPositionFromMatrix( cube.matrixWorld );
