@@ -63,20 +63,28 @@ test.appendChild( renderer.domElement);
 
 renderer.render(scene,camera);
 
+// Camera control functions:
 function animate(){
   requestAnimationFrame( animate);
   controls.update();
+  renderer.render(scene, camera);
 }
 
 function render(){
   renderer.render(scene, camera);
 }
 
-
 // Find obj coordinates:
-scene.updateMatrixWorld(true);
-var position = new THREE.Vector3();
-position.getPositionFromMatrix( cube.matrixWorld );
-console.log(position.x + ',' + position.y + ',' + position.z);
+// scene.updateMatrixWorld(true);
+// var position = new THREE.Vector3();
+// position.setFromMatrixPosition( cube.matrixWorld );
+// console.log(position.x + ',' + position.y + ',' + position.z);
 
+
+window.addEventListener('mousemove', function(e){
+  document.getElementById('x-value').textContent = e.x;
+  document.getElementById('y-value').textContent = e.y;
+  });
 };
+
+
