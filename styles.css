@@ -1,0 +1,22 @@
+.info{
+margin-top: 40vh;
+text-align: center;
+font: normal 12px monospace;
+top: 10px;
+
+position: absolute;
+top: 0px;
+left: 0px;
+
+
+}
+
+#webGL-container{
+
+/*position: absolute;*/
+/*top: 0px;*/
+/*left: 0px;*/
+}
+
+
+

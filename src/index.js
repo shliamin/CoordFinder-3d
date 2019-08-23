@@ -84,7 +84,16 @@ function render(){
 window.addEventListener('mousemove', function(e){
   document.getElementById('x-value').textContent = e.x;
   document.getElementById('y-value').textContent = e.y;
-  });
-};
 
+  var vector = new THREE.Vector3( e.x, e.y, 0 ).unproject( camera );
+  document.getElementById('x-world').textContent = vector.x;
+  document.getElementById('y-world').textContent = vector.z;
+  // console.log(vector);
+  });
+
+
+
+
+
+};
 

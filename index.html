@@ -3,18 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <title>three.js webgl - coordinates</title>
-    <style>
-    body{
-      margin-top: -305px;
-      overflow: hidden;
-    }
-    </style>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <p style="margin-top: 40vh; text-align: left; font: normal 24px monospace;">
-      X : <span id="x-value"></span>
-      Y : <span id="y-value"></span>
-    </p>
+    <div class = "info">
+      <p> X : <span id="x-value"></span></p>
+      <p> Y : <span id="y-value"></span></p>
+      <p> World-x : <span id="x-world"></span></p>
+      <p> World-y : <span id="y-world"></span></p>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
     <script src="https://rawgit.com/jeromeetienne/threex.domevents/master/threex.domevents.js"></script>
