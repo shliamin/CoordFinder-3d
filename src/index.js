@@ -104,7 +104,7 @@ window.addEventListener('mousemove', function(e){
 
   // console.log(vec.x);
 
-  var vector = new THREE.Vector3( e.x, e.y, 0 ).unproject( camera );
+  var vector = new THREE.Vector3( e.x, 0, e.z ).unproject( camera );
   document.getElementById('x-cam-to-cursor').textContent = vec.x;
   document.getElementById('y-cam-to-cursor').textContent = vec.y;
   document.getElementById('z-cam-to-cursor').textContent = vec.z;
@@ -114,6 +114,9 @@ window.addEventListener('mousemove', function(e){
   document.getElementById('y-camera').textContent = camera.position.y;
   document.getElementById('z-camera').textContent = camera.position.z;
 
+  document.getElementById('x-obj').textContent = camera.position.x - vec.x;
+  document.getElementById('y-obj').textContent = camera.position.y - vec.y;
+  document.getElementById('z-obj').textContent = camera.position.z - vec.z;
 
   });
 
