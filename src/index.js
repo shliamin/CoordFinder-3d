@@ -39,9 +39,9 @@ plane.receiveShadow = true;
 
 scene.add(plane);
 
-cube.position.x = 2.5;
+cube.position.x = 0;
 cube.position.y = 2.5;
-cube.position.z = 2.5;
+cube.position.z = 0;
 cube.castShadow = true;
 
 scene.add(cube);
@@ -60,6 +60,7 @@ camera.lookAt(scene.position);
 
 let test = document.getElementById("webGL-container");
 test.appendChild( renderer.domElement);
+
 
 renderer.render(scene,camera);
 
