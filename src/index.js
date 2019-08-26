@@ -86,10 +86,35 @@ window.addEventListener('mousemove', function(e){
   document.getElementById('x-value').textContent = e.x;
   document.getElementById('y-value').textContent = e.y;
 
+  var vec = new THREE.Vector3();
+  var pos = new THREE.Vector3();
+
+  vec.set(
+    (event.clientX/window.innerWidth)*2-1,
+    - (event.clientY/window.innerHeight)*2+1,
+    0,5);
+
+  vec.unproject(camera);
+
+  vec.sub(camera.position).normalize();
+
+  var distance = camera.position.z/vec.z;
+
+  pos.copy(camera.position).add(vec.multiplyScalar(distance));
+
+  // console.log(vec.x);
+
   var vector = new THREE.Vector3( e.x, e.y, 0 ).unproject( camera );
-  document.getElementById('x-world').textContent = vector.x;
-  document.getElementById('y-world').textContent = vector.z;
+  document.getElementById('x-cam-to-cursor').textContent = vec.x;
+  document.getElementById('y-cam-to-cursor').textContent = vec.y;
+  document.getElementById('z-cam-to-cursor').textContent = vec.z;
   // console.log(vector);
+
+  document.getElementById('x-camera').textContent = camera.position.x;
+  document.getElementById('y-camera').textContent = camera.position.y;
+  document.getElementById('z-camera').textContent = camera.position.z;
+
+
   });
 
 
