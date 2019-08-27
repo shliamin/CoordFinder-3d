@@ -96,26 +96,24 @@ window.addEventListener('mousemove', function(e){
 
   vec.unproject(camera);
 
-  vec.sub(camera.position).normalize();
+  vec.sub(camera.position);
 
-  var distance = camera.position.z/vec.z;
+  var distance = camera.position.y/vec.y;
 
   pos.copy(camera.position).add(vec.multiplyScalar(distance));
 
   // console.log(vec.x);
 
-  var vector = new THREE.Vector3( e.x, 0, e.z ).unproject( camera );
   document.getElementById('x-cam-to-cursor').textContent = vec.x;
-  document.getElementById('y-cam-to-cursor').textContent = vec.y;
+  // document.getElementById('y-cam-to-cursor').textContent = vec.y;
   document.getElementById('z-cam-to-cursor').textContent = vec.z;
-  // console.log(vector);
 
   document.getElementById('x-camera').textContent = camera.position.x;
-  document.getElementById('y-camera').textContent = camera.position.y;
+  // document.getElementById('y-camera').textContent = camera.position.y;
   document.getElementById('z-camera').textContent = camera.position.z;
 
   document.getElementById('x-obj').textContent = camera.position.x - vec.x;
-  document.getElementById('y-obj').textContent = camera.position.y - vec.y;
+  // document.getElementById('y-obj').textContent = camera.position.y - vec.y;
   document.getElementById('z-obj').textContent = camera.position.z - vec.z;
 
   });
