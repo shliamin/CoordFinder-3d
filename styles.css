@@ -1,13 +1,14 @@
 #info-1 {
   position: absolute;
-  top: 200px;
-  left: 300px;
+  top: 100px;
+  left: 60px;
   width: 50%;
   z-index: 100;
   display: block;
-  color: white;
-  font-size: 22px;
+  color: rgb(250, 250, 250);
+  font-size: 18px;
   justify-content: center;
+  font-family: 'Rajdhani', sans-serif;
 }
 #info-2 {
   position: absolute;
@@ -24,3 +25,34 @@ body{
   margin: 0px;
   overflow: hidden;
 }
+
+
+.btn-ghost {
+  position: absolute;
+  top: 30px;
+  left: 60px;
+  z-index: 100;
+  display: block;
+  color: rgb(250, 250, 250);
+  border: 1px solid rgb(250, 250, 250);
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-weight: lighter;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  text-decoration: none;
+  font-family: 'Rajdhani', sans-serif;
+    touch-action: none;
+}
+
+.btn-ghost:hover {
+  opacity: 1;
+    touch-action: none;
+}
+
+.drag-drop-item
+{
+  touch-action: none;
+}
+
+

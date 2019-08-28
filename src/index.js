@@ -82,8 +82,8 @@ function render(){
 
 
 window.addEventListener('mousemove', function(e){
-  document.getElementById('x-value').textContent = e.x;
-  document.getElementById('y-value').textContent = e.y;
+  // document.getElementById('x-value').textContent = e.x;
+  // document.getElementById('y-value').textContent = e.y;
 
   var vec = new THREE.Vector3();
   var pos = new THREE.Vector3();
@@ -120,5 +120,3 @@ window.addEventListener('mousemove', function(e){
   });
 
 };
-
-
