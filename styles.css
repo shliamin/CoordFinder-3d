@@ -1,12 +1,13 @@
 #info-1 {
   position: absolute;
   top: 200px;
-  left: 200px;
+  left: 300px;
   width: 50%;
   z-index: 100;
   display: block;
   color: white;
   font-size: 22px;
+  justify-content: center;
 }
 #info-2 {
   position: absolute;
