@@ -17,7 +17,7 @@ renderer.shadowMapSoft = true;
 var axis = new THREE.AxesHelper(30);
 scene.add(axis);
 
-var grid = new THREE.GridHelper(50, 50);
+var grid = new THREE.GridHelper(50, 500);
 var color = new THREE.Color("rgb(255,0,0)");
 // grid.setColors(color,0x000000);
 // var colorfulGrid = new THREE.Mesh(grid, color);
@@ -117,6 +117,37 @@ window.addEventListener('mousemove', function(e){
   // document.getElementById('y-obj').textContent = camera.position.y - vec.y;
   document.getElementById('z-obj').textContent = objZ.toFixed(1);
 
+
+
+
+
+
+  window.addEventListener('click', function(e){
+  var cubeGeometry1 = new THREE.BoxGeometry(0.1,0.1,0.1);
+  var cubeMaterial1 = new THREE.MeshLambertMaterial({color: 0xff3300});
+  var cube1 = new THREE.Mesh(cubeGeometry1, cubeMaterial1);
+
+  cube1.position.x = objX;
+  cube1.position.y = 0.1;
+  cube1.position.z = objZ;
+
+  scene.add(cube1);
+  renderer.render(scene, camera);
   });
+
+  });
+
+
+
+  // var material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+  // var geometry = new THREE.Geometry();
+  // geometry.vertices.push(new THREE.Vector3( -10, 0, 0) );
+  // geometry.vertices.push(new THREE.Vector3( 0, 10, 0) );
+  // geometry.vertices.push(new THREE.Vector3( 10, 0, 0) );
+
+  // var line = new THREE.Line( geometry, material );
+
+  // scene.add( line );
+  // renderer.render( scene, camera );
 
 };
