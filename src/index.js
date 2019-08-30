@@ -111,8 +111,8 @@ window.addEventListener('mousemove', function(e){
   // document.getElementById('y-camera').textContent = camera.position.y;
   // document.getElementById('z-camera').textContent = camera.position.z.toFixed(1);
 
-  var objX = camera.position.x - vec.x;
-  var objZ = camera.position.z - vec.z;
+  let objX = camera.position.x - vec.x;
+  let objZ = camera.position.z - vec.z;
   document.getElementById('x-obj').textContent = objX.toFixed(1);
   // document.getElementById('y-obj').textContent = camera.position.y - vec.y;
   document.getElementById('z-obj').textContent = objZ.toFixed(1);
@@ -122,22 +122,93 @@ window.addEventListener('mousemove', function(e){
 
 
 
+  });
+
   window.addEventListener('click', function(e){
-  var cubeGeometry1 = new THREE.BoxGeometry(0.1,0.1,0.1);
-  var cubeMaterial1 = new THREE.MeshLambertMaterial({color: 0xff3300});
-  var cube1 = new THREE.Mesh(cubeGeometry1, cubeMaterial1);
+  if (e.altKey){
 
-  cube1.position.x = objX;
-  cube1.position.y = 0.1;
-  cube1.position.z = objZ;
+  var vec1 = new THREE.Vector3();
+  var pos1 = new THREE.Vector3();
 
-  scene.add(cube1);
+  vec1.set(
+    (event.clientX/window.innerWidth)*2-1,
+    - (event.clientY/window.innerHeight)*2+1,
+    0,5);
+
+  vec1.unproject(camera);
+
+  vec1.sub(camera.position);
+
+  var distance1 = camera.position.y/vec1.y;
+
+  pos1.copy(camera.position).add(vec1.multiplyScalar(distance1));
+
+  let objX1 = camera.position.x - vec1.x;
+  let objZ1 = camera.position.z - vec1.z;
+
+  // var cubeGeometry1 = new THREE.BoxGeometry(0.1,0.1,0.1);
+  // var cubeMaterial1 = new THREE.MeshLambertMaterial({color: 0xff3300});
+  // var cube1 = new THREE.Mesh(cubeGeometry1, cubeMaterial1);
+
+  const radius = 0.05;
+  const widthSegments = 12;
+  const heightSegments = 8;
+  var sphereMaterial = new THREE.MeshLambertMaterial({color: 0xff3300});
+  const sphereGeometry = new THREE.SphereBufferGeometry(radius, widthSegments, heightSegments);
+  var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+
+  var lineGeometry = new THREE.Geometry();
+
+
+  sphere.position.x = objX1;
+  sphere.position.y = 0.01;
+  sphere.position.z = objZ1;
+
+  if (!(coord === undefined || coord.length == 0)) {
+  lineGeometry.vertices.push(new THREE.Vector3( objX1, 0.01, objZ1) );
+  lineGeometry.vertices.push(new THREE.Vector3( coord[coord.length-1].X, 0.01, coord[coord.length-1].Z) );
+  var line = new THREE.Line( lineGeometry, sphereMaterial );
+
+  let length = Math.sqrt(Math.pow(coord[coord.length-1].X - objX1,2) + Math.pow(coord[coord.length-1].Z - objZ1,2));
+
+  if (lengthArray === undefined || lengthArray.length == 0) {
+    document.getElementById('line').textContent = length.toFixed(1);
+  }
+  else{
+    function lengthArraySum(lengthArray){
+      let sum = 0;
+      for(let i =0; i < lengthArray.length; i++){
+        sum += lengthArray[i];
+      }
+    return sum;
+    }
+
+    let wholeLine = lengthArraySum(lengthArray) + parseFloat(length.toFixed(1));
+    document.getElementById('line').textContent = wholeLine.toFixed(1);
+  // console.log(lengthArray);
+  }
+
+  lengthArray.push(parseFloat(length.toFixed(1)));
+
+  scene.add( line );
+  }
+
+  scene.add(sphere);
   renderer.render(scene, camera);
-  });
+  coord.push({X:objX1, Z:objZ1});
+  }
+
+  //coordinatesX.push(objX1);
+  //coordinatesY.push(objZ1);
+  // console.log(coord);
 
   });
 
+  // let coordinatesX = [];
+  // let coordinatesY = [];
 
+  let coord = [];
+  let lengthArray = [];
 
   // var material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
   // var geometry = new THREE.Geometry();
