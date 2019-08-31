@@ -91,7 +91,7 @@ window.addEventListener('mousemove', function(e){
   vec.set(
     (event.clientX/window.innerWidth)*2-1,
     - (event.clientY/window.innerHeight)*2+1,
-    0,5);
+    0);
 
   vec.unproject(camera);
 
