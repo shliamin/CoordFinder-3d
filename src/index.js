@@ -124,6 +124,7 @@ window.addEventListener('mousemove', function(e){
 
   });
 
+
   window.addEventListener('click', function(e){
   if (e.altKey){
 
@@ -165,38 +166,54 @@ window.addEventListener('mousemove', function(e){
   sphere.position.z = objZ1;
 
   if (!(coord === undefined || coord.length == 0)) {
+  line_counter++;
+  let type = 'line';
+  this[type+'_id'] = line_counter;
+
   lineGeometry.vertices.push(new THREE.Vector3( objX1, 0.01, objZ1) );
   lineGeometry.vertices.push(new THREE.Vector3( coord[coord.length-1].X, 0.01, coord[coord.length-1].Z) );
-  var line = new THREE.Line( lineGeometry, sphereMaterial );
+  var line_id = new THREE.Line( lineGeometry, sphereMaterial );
 
+  // console.log(counter);
   let length = Math.sqrt(Math.pow(coord[coord.length-1].X - objX1,2) + Math.pow(coord[coord.length-1].Z - objZ1,2));
 
+  // console.log(line_id);
+
   if (lengthArray === undefined || lengthArray.length == 0) {
-    document.getElementById('line').textContent = length.toFixed(1);
+    document.getElementById('line').innerHTML = `sum: <span id = "result_number">${length.toFixed(1)}</span>`;
   }
   else{
-    function lengthArraySum(lengthArray){
-      let sum = 0;
-      for(let i =0; i < lengthArray.length; i++){
-        sum += lengthArray[i];
-      }
-    return sum;
-    }
+    // function lengthArraySum(lengthArray){
+    //   let sum = 0;
+    //   for(let i =0; i < lengthArray.length; i++){
+    //     sum += lengthArray[i];
+    //   }
+    // return sum;
+    // }
 
     let wholeLine = lengthArraySum(lengthArray) + parseFloat(length.toFixed(1));
-    document.getElementById('line').textContent = wholeLine.toFixed(1);
+    document.getElementById('line').innerHTML = `sum: ${wholeLine.toFixed(1)}`;
   // console.log(lengthArray);
   }
 
   lengthArray.push(parseFloat(length.toFixed(1)));
 
-  scene.add( line );
+  scene.add( line_id );
+  document.querySelector("#info-3").innerHTML += `<p id=${line_counter}>line ${line_counter}: <span id="color_line">${lengthArray[lengthArray.length-1]}</span></p>`;
   }
 
   scene.add(sphere);
   renderer.render(scene, camera);
   coord.push({X:objX1, Z:objZ1});
+  console.log(coord);
   }
+  else if(e.shiftKey){
+  coord.splice(-1,1);
+  lengthArray.splice(-1,1);
+  let wholeLineR = lengthArraySum(lengthArray);
+  document.getElementById('line').textContent = wholeLineR.toFixed(1);
+  scene.remove( line );
+}
 
   //coordinatesX.push(objX1);
   //coordinatesY.push(objZ1);
@@ -206,9 +223,16 @@ window.addEventListener('mousemove', function(e){
 
   // let coordinatesX = [];
   // let coordinatesY = [];
-
+  let line_counter = 0;
   let coord = [];
   let lengthArray = [];
+  function lengthArraySum(lengthArray){
+      let sum = 0;
+      for(let i =0; i < lengthArray.length; i++){
+        sum += lengthArray[i];
+      }
+    return sum;
+    }
 
   // var material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
   // var geometry = new THREE.Geometry();
@@ -220,5 +244,5 @@ window.addEventListener('mousemove', function(e){
 
   // scene.add( line );
   // renderer.render( scene, camera );
-
 };
+
