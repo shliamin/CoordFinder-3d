@@ -1,9 +1,9 @@
 
 init();
-animate();
+// animate();
 
 function init() {
-var scene = new THREE.Scene();
+let scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(55,window.innerWidth/window.innerHeight, .1, 500);
 var renderer = new THREE.WebGLRenderer();
 var controls = new THREE.OrbitControls( camera);
@@ -150,13 +150,13 @@ window.addEventListener('mousemove', function(e){
   // var cubeGeometry1 = new THREE.BoxGeometry(0.1,0.1,0.1);
   // var cubeMaterial1 = new THREE.MeshLambertMaterial({color: 0xff3300});
   // var cube1 = new THREE.Mesh(cubeGeometry1, cubeMaterial1);
-
-  const radius = 0.05;
+  let radius = 0.2;
   const widthSegments = 12;
   const heightSegments = 8;
   var sphereMaterial = new THREE.MeshLambertMaterial({color: 0xff3300});
   const sphereGeometry = new THREE.SphereBufferGeometry(radius, widthSegments, heightSegments);
-  var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+  let sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+  spheres_ids.push(sphere.id);
 
   var lineGeometry = new THREE.Geometry();
 
@@ -172,8 +172,9 @@ window.addEventListener('mousemove', function(e){
 
   lineGeometry.vertices.push(new THREE.Vector3( objX1, 0.01, objZ1) );
   lineGeometry.vertices.push(new THREE.Vector3( coord[coord.length-1].X, 0.01, coord[coord.length-1].Z) );
-  var line_id = new THREE.Line( lineGeometry, sphereMaterial );
-
+  let line_id = new THREE.Line( lineGeometry, sphereMaterial );
+  lines_ids.push(line_id.id);
+  // console.log(lines_ids);
   // console.log(counter);
   let length = Math.sqrt(Math.pow(coord[coord.length-1].X - objX1,2) + Math.pow(coord[coord.length-1].Z - objZ1,2));
 
@@ -202,17 +203,49 @@ window.addEventListener('mousemove', function(e){
   document.querySelector("#info-3").innerHTML += `<p id=${line_counter}>line ${line_counter}: <span id="color_line">${lengthArray[lengthArray.length-1]}</span></p>`;
   }
 
+  // let sphereModified = sphere.scale.y = 20;
   scene.add(sphere);
+
+  // scene.add(sphereModified);
+  // console.log(sphereModified);
   renderer.render(scene, camera);
   coord.push({X:objX1, Z:objZ1});
-  console.log(coord);
+  // console.log(coord);
   }
   else if(e.shiftKey){
+    if(spheres_ids.length < 2){
+    let selectedSphereOne = scene.getObjectById(spheres_ids[spheres_ids.length-1]);
+    scene.remove(selectedSphereOne);
+    coord.splice(-1,1);
+    animate();
+  }
+  else {
   coord.splice(-1,1);
   lengthArray.splice(-1,1);
   let wholeLineR = lengthArraySum(lengthArray);
-  document.getElementById('line').textContent = wholeLineR.toFixed(1);
-  scene.remove( line );
+  document.getElementById('line').textContent = `sum: ${wholeLineR.toFixed(1)}`;
+
+  // console.log(lines_ids);
+  let selectedLine = scene.getObjectById(lines_ids[lines_ids.length-1]);
+  let selectedSphere = scene.getObjectById(spheres_ids[spheres_ids.length-1]);
+  // console.log(lines_ids.length-1);
+  // console.log(lines_ids[lines_ids.length-1]);
+
+
+  // console.log(selectedObject);
+  scene.remove(selectedLine);
+  scene.remove(selectedSphere);
+  animate();
+
+  lines_ids.pop();
+  spheres_ids.pop();
+
+
+
+  let elem = document.getElementById(`${line_counter}`);
+  elem.remove();
+  line_counter --;
+}
 }
 
   //coordinatesX.push(objX1);
@@ -223,6 +256,8 @@ window.addEventListener('mousemove', function(e){
 
   // let coordinatesX = [];
   // let coordinatesY = [];
+  let spheres_ids = [];
+  let lines_ids = [];
   let line_counter = 0;
   let coord = [];
   let lengthArray = [];
